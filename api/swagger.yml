@@ -1,0 +1,408 @@
+openapi: 3.0.3
+
+info:
+  title: Green Infrastructure API Portal
+  version: '1.0'
+
+paths:
+  /huc8:
+    get:
+      tags:
+        - HUC8
+      summary: Get all HUC8s
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Return HUC8s
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Pagination'
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/HUC8'
+
+  '/huc8/{huc8_id}':
+    get:
+      tags:
+        - HUC8
+      summary: Get a single HUC8
+      parameters:
+        - name: huc8_id
+          description: HUC8 number
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return HUC8
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HUC8'
+        '404':
+          description: HUC8 does not exist
+
+  /practices:
+    get:
+      tags:
+        - Practices
+      summary: Get all practices
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/group_by'
+        - $ref: '#/components/parameters/aggregates'
+        - $ref: '#/components/parameters/partitions'
+        - $ref: '#/components/parameters/partition_size'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/huc_8'
+        - $ref: '#/components/parameters/state'
+        - $ref: '#/components/parameters/practice_code'
+        - $ref: '#/components/parameters/applied_date'
+        - $ref: '#/components/parameters/sunset'
+        - $ref: '#/components/parameters/program'
+        - $ref: '#/components/parameters/min_applied_amount'
+        - $ref: '#/components/parameters/max_applied_amount'
+        - $ref: '#/components/parameters/category'
+        - $ref: '#/components/parameters/wq_benefits'
+        - $ref: '#/components/parameters/ancillary_benefits'
+        - $ref: '#/components/parameters/min_area_treated'
+        - $ref: '#/components/parameters/max_area_treated'
+        - $ref: '#/components/parameters/nutrient_type'
+        - $ref: '#/components/parameters/value_type'
+      responses:
+        '200':
+          description: Return practices
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Pagination'
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Practice'
+
+  '/practices/{practice_id}':
+    get:
+      tags:
+        - Practices
+      summary: Get a single practice
+      parameters:
+        - name: practice_id
+          description: Practice id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Return practice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Practice'
+        '404':
+          description: Practice does not exist
+
+  /bmp_types:
+    get:
+      tags:
+        - BMP Types
+      summary: Get all BMP Types
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Return BMP Types
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Pagination'
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/BMP_types'
+components:
+  parameters:
+    page:
+      name: page
+      description: The page number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    limit:
+      name: limit
+      description: The number of items per page. If limit is less than 1, then all the items matching the query will be returned.
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 20
+    huc_8:
+      name: huc_8
+      description: HUC8 codes
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    state:
+      name: state
+      description: State names
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    practice_code:
+      name: practice_code
+      description: Practice code
+      in: query
+      required: false
+      schema:
+        type: string
+    applied_date:
+      name: applied_date
+      description: Practice applied date
+      in: query
+      required: false
+      schema:
+        type: integer
+    sunset:
+      name: sunset
+      description: Practice sunset
+      in: query
+      required: false
+      schema:
+        type: integer
+    program:
+      name: program
+      description: Practice program
+      in: query
+      required: false
+      schema:
+        type: string
+    min_applied_amount:
+      name: min_applied_amount
+      description: Practice minimum applied amount
+      in: query
+      required: false
+      schema:
+        type: number
+    max_applied_amount:
+      name: max_applied_amount
+      description: Practice maximum applied amount
+      in: query
+      required: false
+      schema:
+        type: number
+    category:
+      name: category
+      description: Practice category
+      in: query
+      required: false
+      schema:
+        type: string
+    wq_benefits:
+      name: wq_benefits
+      description: Practice water quality benefits
+      in: query
+      required: false
+      schema:
+        type: string
+    ancillary_benefits:
+      name: ancillary_benefits
+      description: Practice ancillary benefits
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    min_area_treated:
+      name: min_area_treated
+      description: Practice minimum area treated
+      in: query
+      required: false
+      schema:
+        type: number
+    max_area_treated:
+      name: max_area_treated
+      description: Practice maximum area treated
+      in: query
+      required: false
+      schema:
+        type: number
+    nutrient_type:
+      name: nutrient_type
+      description: Practice nutrient type
+      in: query
+      required: false
+      schema:
+        type: string
+    value_type:
+      name: value_type
+      description: Practice value type
+      in: query
+      schema:
+        type: string
+    # The following is used for processing data, e.g. grouping by a column and applying statistical functions
+    group_by:
+      name: group_by
+      description: List of columns to group the query with
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+    aggregates:
+      name: aggregates
+      description: The type of aggregation to apply to the query, e.g. count and sum
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+    partitions:
+      name: partitions
+      description: List of columns to partition over
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+    partition_size:
+      name: partition_size
+      description: Number of items to include in each partition. -1 means include everything.
+      in: query
+      required: false
+      schema:
+        type: number
+    order_by:
+      name: order_by
+      description: List of columns to order the query by.
+                   Column names must be prepended with + or -,
+                   indicating whether to sort them in ascending or descending order respectively.
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+
+  schemas:
+    Pagination:
+      type: object
+      properties:
+        count:
+          type: integer
+          minimum: 0
+        first:
+          type: string
+        last:
+          type: string
+        previous:
+          type: string
+        next:
+          type: string
+
+    HUC8:
+      type: object
+      properties:
+        huc8:
+          type: string
+        name:
+          type: string
+        areaacres:
+          type: string
+        states:
+          type: string
+
+    Practice:
+      type: object
+      properties:
+        id:
+          type: integer
+        huc_8:
+          type: string
+        huc_12:
+          type: string
+        state:
+          type: string
+        county_code:
+          type: string
+        county:
+          type: string
+        nrcs_practice_code:
+          type: string
+        practice_name:
+          type: string
+        program:
+          type: string
+        fund_code:
+          type: string
+        applied_amount:
+          type: number
+        practice_units:
+          type: string
+        applied_date:
+          type: integer
+        funding:
+          type: number
+        sunset:
+          type: integer
+        active_year:
+          type: integer
+        category:
+          type: string
+        wq_benefits:
+          type: string
+        area_treated:
+          type: number
+        ancillary_benefits:
+          type: string
+        p_reduction_fraction:
+          type: number
+        n_reduction_fraction:
+          type: number
+        p_reduction_percentage_statewide:
+          type: number
+        n_reduction_percentage_statewide:
+          type: number
+        p_reduction_gom_lbs:
+          type: number
+        n_reduction_gom_lbs:
+          type: number
+
+    BMP_types:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        other_description:
+          type: string
+        funding_program:
+          type: string
+        bmp_units:
+          type: string

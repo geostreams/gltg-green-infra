@@ -17,3 +17,6 @@ class Database:
             self.db_session.remove()
         if self.engine:
             self.engine.dispose()
+
+
+db = Database()

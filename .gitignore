@@ -1,3 +1,5 @@
 venv/
-.env
+api/.env
 gen/
+.idea
+__pycache__/

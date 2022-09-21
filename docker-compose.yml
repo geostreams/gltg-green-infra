@@ -3,7 +3,7 @@ version: "3"
 services:
   postgres:
     image: postgis/postgis:13-3.1-alpine
-    env_file: .env
+    env_file: api/.env
     environment:
       - POSTGRES_DB=${DB_NAME:-gltg-gi}
       - POSTGRES_USER=${DB_USER:-postgres}

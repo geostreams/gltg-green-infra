@@ -7,6 +7,7 @@ info:
 paths:
   /huc8:
     get:
+      operationId: controllers.huc8.huc8_get
       tags:
         - HUC8
       summary: Get all HUC8s
@@ -28,115 +29,115 @@ paths:
                         items:
                           $ref: '#/components/schemas/HUC8'
 
-  '/huc8/{huc8_id}':
-    get:
-      tags:
-        - HUC8
-      summary: Get a single HUC8
-      parameters:
-        - name: huc8_id
-          description: HUC8 number
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Return HUC8
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HUC8'
-        '404':
-          description: HUC8 does not exist
-
-  /practices:
-    get:
-      tags:
-        - Practices
-      summary: Get all practices
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/group_by'
-        - $ref: '#/components/parameters/aggregates'
-        - $ref: '#/components/parameters/partitions'
-        - $ref: '#/components/parameters/partition_size'
-        - $ref: '#/components/parameters/order_by'
-        - $ref: '#/components/parameters/huc_8'
-        - $ref: '#/components/parameters/state'
-        - $ref: '#/components/parameters/practice_code'
-        - $ref: '#/components/parameters/applied_date'
-        - $ref: '#/components/parameters/sunset'
-        - $ref: '#/components/parameters/program'
-        - $ref: '#/components/parameters/min_applied_amount'
-        - $ref: '#/components/parameters/max_applied_amount'
-        - $ref: '#/components/parameters/category'
-        - $ref: '#/components/parameters/wq_benefits'
-        - $ref: '#/components/parameters/ancillary_benefits'
-        - $ref: '#/components/parameters/min_area_treated'
-        - $ref: '#/components/parameters/max_area_treated'
-        - $ref: '#/components/parameters/nutrient_type'
-        - $ref: '#/components/parameters/value_type'
-      responses:
-        '200':
-          description: Return practices
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/Pagination'
-                  - type: object
-                    properties:
-                      results:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/Practice'
-
-  '/practices/{practice_id}':
-    get:
-      tags:
-        - Practices
-      summary: Get a single practice
-      parameters:
-        - name: practice_id
-          description: Practice id
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Return practice
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Practice'
-        '404':
-          description: Practice does not exist
-
-  /bmp_types:
-    get:
-      tags:
-        - BMP Types
-      summary: Get all BMP Types
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/limit'
-      responses:
-        '200':
-          description: Return BMP Types
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/Pagination'
-                  - type: object
-                    properties:
-                      results:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/BMP_types'
+#  '/huc8/{huc8_id}':
+#    get:
+#      tags:
+#        - HUC8
+#      summary: Get a single HUC8
+#      parameters:
+#        - name: huc8_id
+#          description: HUC8 number
+#          in: path
+#          required: true
+#          schema:
+#            type: string
+#      responses:
+#        '200':
+#          description: Return HUC8
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/HUC8'
+#        '404':
+#          description: HUC8 does not exist
+#
+#  /practices:
+#    get:
+#      tags:
+#        - Practices
+#      summary: Get all practices
+#      parameters:
+#        - $ref: '#/components/parameters/page'
+#        - $ref: '#/components/parameters/limit'
+#        - $ref: '#/components/parameters/group_by'
+#        - $ref: '#/components/parameters/aggregates'
+#        - $ref: '#/components/parameters/partitions'
+#        - $ref: '#/components/parameters/partition_size'
+#        - $ref: '#/components/parameters/order_by'
+#        - $ref: '#/components/parameters/huc_8'
+#        - $ref: '#/components/parameters/state'
+#        - $ref: '#/components/parameters/practice_code'
+#        - $ref: '#/components/parameters/applied_date'
+#        - $ref: '#/components/parameters/sunset'
+#        - $ref: '#/components/parameters/program'
+#        - $ref: '#/components/parameters/min_applied_amount'
+#        - $ref: '#/components/parameters/max_applied_amount'
+#        - $ref: '#/components/parameters/category'
+#        - $ref: '#/components/parameters/wq_benefits'
+#        - $ref: '#/components/parameters/ancillary_benefits'
+#        - $ref: '#/components/parameters/min_area_treated'
+#        - $ref: '#/components/parameters/max_area_treated'
+#        - $ref: '#/components/parameters/nutrient_type'
+#        - $ref: '#/components/parameters/value_type'
+#      responses:
+#        '200':
+#          description: Return practices
+#          content:
+#            application/json:
+#              schema:
+#                allOf:
+#                  - $ref: '#/components/schemas/Pagination'
+#                  - type: object
+#                    properties:
+#                      results:
+#                        type: array
+#                        items:
+#                          $ref: '#/components/schemas/Practice'
+#
+#  '/practices/{practice_id}':
+#    get:
+#      tags:
+#        - Practices
+#      summary: Get a single practice
+#      parameters:
+#        - name: practice_id
+#          description: Practice id
+#          in: path
+#          required: true
+#          schema:
+#            type: integer
+#      responses:
+#        '200':
+#          description: Return practice
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/Practice'
+#        '404':
+#          description: Practice does not exist
+#
+#  /bmp_types:
+#    get:
+#      tags:
+#        - BMP Types
+#      summary: Get all BMP Types
+#      parameters:
+#        - $ref: '#/components/parameters/page'
+#        - $ref: '#/components/parameters/limit'
+#      responses:
+#        '200':
+#          description: Return BMP Types
+#          content:
+#            application/json:
+#              schema:
+#                allOf:
+#                  - $ref: '#/components/schemas/Pagination'
+#                  - type: object
+#                    properties:
+#                      results:
+#                        type: array
+#                        items:
+#                          $ref: '#/components/schemas/BMP_types'
 components:
   parameters:
     page:

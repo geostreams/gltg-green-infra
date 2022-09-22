@@ -3,11 +3,7 @@ version: "3"
 services:
   postgres:
     image: postgis/postgis:13-3.1-alpine
-    env_file: api/.env
-    environment:
-      - POSTGRES_DB=${DB_NAME:-gltg-gi}
-      - POSTGRES_USER=${DB_USER:-postgres}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    env_file: .env
     networks:
       - green-infra
     ports:
@@ -15,6 +11,16 @@ services:
     volumes:
       - postgis:/var/lib/postgresql/data
     restart: unless-stopped
+
+  api:
+    env_file: api/.env
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    networks:
+      - green-infra
 
 volumes:
   postgis:

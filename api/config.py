@@ -1,11 +1,11 @@
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import connexion
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
 # Import environment variables
-load_dotenv()
+# load_dotenv()
 
 # Create the connexion application instance
 connexion_app = connexion.FlaskApp(__name__, specification_dir='swagger/')

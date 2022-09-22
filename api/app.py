@@ -7,4 +7,4 @@ connex_app = config.connexion_app
 connex_app.add_api('v1.0.yml')
 
 if __name__ == "__main__":
-    connex_app.run(port=8080, debug= True)
+    connex_app.run(port=5000, debug= True)

@@ -7,7 +7,7 @@ info:
 paths:
   /huc8:
     get:
-      operationId: controllers.huc8.huc8_get
+      operationId: controllers.HUC8.huc8_get
       tags:
         - HUC8
       summary: Get all HUC8s
@@ -31,7 +31,7 @@ paths:
 
   '/huc8/{huc8_id}':
     get:
-      operationId: controllers.huc8.huc8_get_id
+      operationId: controllers.HUC8.huc8_get_id
       tags:
         - HUC8
       summary: Get a single HUC8
@@ -51,6 +51,31 @@ paths:
                 $ref: '#/components/schemas/HUC8'
         '404':
           description: HUC8 does not exist
+
+
+  /practice_types:
+    get:
+      operationId: controllers.PracticeType.practice_types_get
+      tags:
+        - Practice Types
+      summary: Get all Practice Types
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Return Practice Types
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Pagination'
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/practice_types'
 
 #  /practices:
 #    get:
@@ -117,28 +142,6 @@ paths:
 #        '404':
 #          description: Practice does not exist
 #
-#  /bmp_types:
-#    get:
-#      tags:
-#        - BMP Types
-#      summary: Get all BMP Types
-#      parameters:
-#        - $ref: '#/components/parameters/page'
-#        - $ref: '#/components/parameters/limit'
-#      responses:
-#        '200':
-#          description: Return BMP Types
-#          content:
-#            application/json:
-#              schema:
-#                allOf:
-#                  - $ref: '#/components/schemas/Pagination'
-#                  - type: object
-#                    properties:
-#                      results:
-#                        type: array
-#                        items:
-#                          $ref: '#/components/schemas/BMP_types'
 components:
   parameters:
     page:
@@ -382,29 +385,18 @@ components:
           type: number
         ancillary_benefits:
           type: string
-        p_reduction_fraction:
-          type: number
-        n_reduction_fraction:
-          type: number
-        p_reduction_percentage_statewide:
-          type: number
-        n_reduction_percentage_statewide:
-          type: number
-        p_reduction_gom_lbs:
-          type: number
-        n_reduction_gom_lbs:
-          type: number
 
-    BMP_types:
+    practice_types:
       type: object
       properties:
-        name:
+        practice_type_id:
+          type: number
+        practice_category_type_name:
           type: string
-        category:
+        practice_category:
           type: string
-        other_description:
+        practice_source:
           type: string
-        funding_program:
+        practice_definition:
           type: string
-        bmp_units:
-          type: string
+

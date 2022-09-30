@@ -1,8 +1,10 @@
 from sqlalchemy import Column, Float, Text
 from geoalchemy2 import Geometry
-from marshmallow_sqlalchemy import SQLAlchemySchema, fields
-from marshmallow_sqlalchemy.convert import ModelConverter as BaseModelConverter
+
 from config import db, ma
+from sqlalchemy.orm import relationship
+
+from models.HUCPracticeRelations import huc_practice_relations
 
 
 class HUC8(db.Model):
@@ -14,6 +16,7 @@ class HUC8(db.Model):
     geom = Column("geom", Geometry("MULTIPOLYGON", 4326, from_text="ST_GeomFromEWKT", name="geometry"),
                       index=True)
 
+    practices = relationship("Practice", secondary=huc_practice_relations, backref="huc8s")
 
 # class ModelConverter(BaseModelConverter):
 #     SQLA_TYPE_MAPPING = {
